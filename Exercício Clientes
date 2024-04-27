@@ -1,6 +1,16 @@
-def somar_clientes_por_dia(banco_de_dados, dia):
-    total_clientes = 0
-    for entrada in banco_de_dados:
-        if entrada['data_cadastro'] == dia:
-            total_clientes += 1
-    return total_clientes
+CREATE FUNCTION somar_clientes_por_dia(data_cadastro DATE)
+RETURNS INT
+AS
+$$
+DECLARE
+    total_clientes INT;
+BEGIN
+    SELECT COUNT(*)
+    INTO total_clientes
+    FROM clientes
+    WHERE DATE(data_cadastro) = data_cadastro;
+    
+    RETURN total_clientes;
+END;
+$$
+LANGUAGE plpgsql;
