@@ -1,0 +1,6 @@
+def somar_clientes_por_dia(banco_de_dados, dia):
+    total_clientes = 0
+    for entrada in banco_de_dados:
+        if entrada['data_cadastro'] == dia:
+            total_clientes += 1
+    return total_clientes
