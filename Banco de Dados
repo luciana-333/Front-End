@@ -1,0 +1,44 @@
+
+CREATE DATABASE IF NOT EXISTS Empresa;
+USE Empresa;
+
+
+CREATE TABLE IF NOT EXISTS Departamento (
+    id_departamento INT PRIMARY KEY,
+    nome_departamento VARCHAR(50)
+);
+
+
+CREATE TABLE IF NOT EXISTS Funcionario (
+    id_funcionario INT PRIMARY KEY,
+    nome_funcionario VARCHAR(50),
+    salario DECIMAL(10, 2),
+    id_departamento INT,
+    FOREIGN KEY (id_departamento) REFERENCES Departamento(id_departamento)
+);
+
+
+INSERT INTO Departamento (id_departamento, nome_departamento)
+VALUES 
+    (1, 'Vendas'),
+    (2, 'RH');
+
+
+INSERT INTO Funcionario (id_funcionario, nome_funcionario, salario, id_departamento)
+VALUES 
+    (1, 'João', 3000.00, 1),
+    (2, 'Maria', 3500.00, 2),
+    (3, 'Pedro', 2800.00, 1);
+
+
+SELECT Funcionario.nome_funcionario, Funcionario.salario, Departamento.nome_departamento
+FROM Funcionario
+INNER JOIN Departamento ON Funcionario.id_departamento = Departamento.id_departamento;
+
+SELECT Funcionario.nome_funcionario, Funcionario.salario, Departamento.nome_departamento
+FROM Funcionario
+LEFT JOIN Departamento ON Funcionario.id_departamento = Departamento.id_departamento;
+
+SELECT Funcionario.nome_funcionario, Funcionario.salario, Departamento.nome_departamento
+FROM Funcionario
+RIGHT JOIN Departamento ON Funcionario.id_departamento = Departamento.id_departamento;
